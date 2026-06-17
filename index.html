@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plastodristi 2026 - Home</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+        body {
+            background-color: #0B0F19;
+            color: #F3F4F6;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+        .text-gradient {
+            background: linear-gradient(to right, #00F0FF, #FF007A, #8B5CF6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .btn-gradient {
+            background: linear-gradient(135deg, #00F0FF, #FF007A);
+            transition: all 0.3s ease;
+        }
+        .btn-gradient:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 0, 122, 0.6);
+        }
+        .glass-nav {
+            background: rgba(11, 15, 25, 0.7);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .accordion-active .accordion-content {
+            max-height: 200px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sticky Navigation Bar -->
+    <nav class="glass-nav fixed top-0 left-0 w-full z-50 px-6 py-4 flex justify-between items-center">
+        <div class="text-xl font-bold tracking-wider text-gradient">PLASTODRISTI 2026</div>
+        <div class="hidden md:flex space-x-8 font-medium">
+            <a href="index.html" class="text-cyan-400 hover:text-white transition">Home</a>
+            <a href="crisis.html" class="hover:text-pink-500 transition">The Crisis</a>
+            <a href="innovation.html" class="hover:text-purple-500 transition">Our Innovation</a>
+        </div>
+        <a href="https://v0-plastodristi-mobile-app.vercel.app/" target="_blank" class="btn-gradient text-black font-bold px-5 py-2 rounded-full text-sm uppercase tracking-wide">Launch Portal</a>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex flex-col justify-center items-center text-center px-4 pt-24">
+        <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-4 text-gradient animate-pulse">
+            Plastodristi 2026
+        </h1>
+        <p class="text-lg md:text-2xl text-gray-400 max-w-2xl mb-8 font-light">
+            Empowering Communities with Low-Cost Mobile Microplastic Detection.
+        </p>
+        
+        <!-- Big Pulsing CTA -->
+        <a href="https://v0-plastodristi-mobile-app.vercel.app/" target="_blank" class="btn-gradient text-black font-extrabold text-lg px-8 py-4 rounded-full shadow-lg mb-12 uppercase tracking-wider block">
+            Launch Detection Portal 🚀
+        </a>
+
+        <!-- Interactive Accordion Summary Widget -->
+        <div class="w-full max-w-xl bg-gray-900/50 border border-gray-800 rounded-2xl p-4 text-left shadow-2xl">
+            <div id="accordion-toggle" class="flex justify-between items-center cursor-pointer group">
+                <h3 class="text-lg font-semibold text-cyan-400 group-hover:text-cyan-300 transition">✨ Quick Project Summary (Click to Expand)</h3>
+                <span id="accordion-icon" class="text-pink-500 font-bold transition-transform duration-300">▼</span>
+            </div>
+            <div id="accordion-wrapper" class="accordion-content">
+                <p class="text-gray-300 text-sm mt-4 leading-relaxed border-t border-gray-800 pt-3">
+                    Plastodristi 2026 is an award-winning Class 10 science project designed to solve the global microplastic tracking problem. By utilizing an ultra-affordable 10x smartphone macro lens, an optimized UV light isolation chamber, and fluorescent stain tracking, we allow everyday citizens to detect harmful micro-particles in water samples instantly without relying on expensive laboratory gear.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="w-full py-6 border-t border-gray-900 text-center text-xs text-gray-600 tracking-wide mt-12">
+        Plastodristi © 2026 | National Science Exhibition Project | Class 10
+    </footer>
+
+    <!-- Interactive JavaScript -->
+    <script>
+        const toggle = document.getElementById('accordion-toggle');
+        const wrapper = document.getElementById('accordion-wrapper');
+        const icon = document.getElementById('accordion-icon');
+
+        toggle.addEventListener('click', () => {
+            const isActive = wrapper.parentElement.classList.toggle('accordion-active');
+            icon.style.transform = isActive ? 'rotate(180deg)' : 'rotate(0deg)';
+        });
+    </script>
+</body>
+</html>

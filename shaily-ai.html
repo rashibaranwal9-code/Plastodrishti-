@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shaily AI - Smartphone Microplastic Detection Hub</title>
+    <style>
+        :root {
+            --bg-color: #070114;
+            --main-pink: #ff007f;
+            --main-purple: #9400d3;
+            --main-blue: #00e5ff;
+            --text-color: #ffffff;
+            --panel-bg: rgba(255, 255, 255, 0.04);
+            --border-color: rgba(255, 255, 255, 0.08);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            background-image: radial-gradient(circle at 15% 25%, rgba(255, 0, 127, 0.18) 0%, transparent 45%),
+                              radial-gradient(circle at 85% 75%, rgba(148, 0, 211, 0.18) 0%, transparent 45%),
+                              radial-gradient(circle at 50% 50%, rgba(0, 229, 255, 0.05) 0%, transparent 50%);
+            color: var(--text-color);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-h: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .container {
+            width: 950px;
+            max-width: 100%;
+            background: var(--panel-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 24px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 
+                        0 0 30px rgba(148, 0, 211, 0.15),
+                        0 0 60px rgba(0, 229, 255, 0.05);
+            padding: 35px;
+            box-sizing: border-box;
+        }
+
+        /* HEADER BLOCK */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 20px;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .ai-icon {
+            width: 55px;
+            height: 55px;
+            background: linear-gradient(135deg, var(--main-pink), var(--main-purple));
+            border-radius: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            box-shadow: 0 0 20px rgba(255, 0, 127, 0.4);
+            margin-right: 18px;
+        }
+
+        .header-title h1 {
+            font-size: 32px;
+            font-weight: 800;
+            margin: 0;
+            letter-spacing: -0.5px;
+            background: linear-gradient(90deg, #ffffff, #f0b3ff, var(--main-blue));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header-title p {
+            margin: 4px 0 0 0;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .status-badge {
+            background: rgba(0, 229, 255, 0.1);
+            border: 1px solid rgba(0, 229, 255, 0.2);
+            color: var(--main-blue);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            box-shadow: 0 0 10px rgba(0, 229, 255, 0.1);
+        }
+
+        /* INTERACTIVE CHAT SCREEN */
+        .chat-section {
+            background: rgba(0, 0, 0, 0.25);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 40px;
+        }
+
+        .chat-messages {
+            height: 350px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            padding-right: 12px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .message {
+            margin-bottom: 18px;
+            max-width: 80%;
+            padding: 14px 18px;
+            border-radius: 16px;
+            line-height: 1.5;
+            font-size: 15px;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .message.you {
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+            margin-left: auto;
+        }
+
+        .message.shaily {
+            background: rgba(148, 0, 211, 0.08);
+            border: 1px solid rgba(148, 0, 211, 0.4);
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+            box-shadow: 0 0 15px rgba(148, 0, 211, 0.15);
+        }
+
+        .chat-input {
+            display: flex;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            overflow: hidden;
+            padding: 4px;
+            transition: border-color 0.3s ease;
+        }
+
+        .chat-input:focus-within {
+            border-color: var(--main-blue);
+            box-shadow: 0 0 10px rgba(0, 229, 255, 0.1);
+        }
+
+        .chat-input input {
+            flex-grow: 1;
+            background: transparent;
+            border: none;
+            padding: 14px 24px;
+            color: white;
+            font-size: 16px;
+        }
+
+        .chat-input input:focus {
+            outline: none;
+        }
+
+        .send-btn {
+            background: linear-gradient(90deg, var(--main-pink), var(--main-purple));
+            border: none;
+            color: white;
+            padding: 0 28px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        .send-btn:hover { opacity: 0.9; }
+        .send-btn:active { transform: scale(0.96); }
+
+        /* POPULAR QUESTIONS LAYOUT */
+        .faq-section h2 {
+            font-size: 14px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            margin-top: 0;
+            margin-bottom: 25px;
+            color: var(--main-blue);
+            text-transform: uppercase;
+        }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .faq-grid { grid-template-columns: 1fr; }
+        }
+
+        .faq-item {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .faq-item:hover {
+            border-color: var(--main-purple);
+            background: rgba(148, 0, 211, 0.04);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(148, 0, 211, 0.15);
+        }
+
+        .faq-item h3 {
+            font-size: 16px;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        /* Numbering highlight gradients */
+        .faq-item:nth-child(1) h3 { color: var(--main-pink); }
+        .faq-item:nth-child(2) h3 { color: #f0b3ff; }
+        .faq-item:nth-child(3) h3 { color: var(--main-blue); }
+        .faq-item:nth-child(4) h3 { color: #ffbc42; }
+        .faq-item:nth-child(5) h3 { color: #00ff88; }
+        .faq-item:nth-child(6) h3 { color: #ff7b00; }
+        .faq-item:nth-child(7) h3 { color: #af40ff; }
+        .faq-item:nth-child(8) h3 { color: #00dbde; }
+        .faq-item:nth-child(9) h3 { color: var(--main-pink); }
+        .faq-item:nth-child(10) h3 { color: #e0e0e0; }
+
+        .faq-item p {
+            font-size: 13.5px;
+            margin: 0;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.5;
+        }
+
+        .chat-messages::-webkit-scrollbar { width: 6px; }
+        .chat-messages::-webkit-scrollbar-thumb { background-color: rgba(255, 255, 255, 0.1); border-radius: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <!-- Header -->
+        <div class="header">
+            <div class="header-left">
+                <div class="ai-icon">S✨</div>
+                <div class="header-title">
+                    <h1>SHAILY AI</h1>
+                    <p>Smartphone Microplastic Analysis & Diagnostic Core</p>
+                </div>
+            </div>
+            <div class="status-badge">Live Sync</div>
+        </div>
+
+        <!-- Chat Workspace -->
+        <div class="chat-section">
+            <div class="chat-messages" id="chatMessages">
+                <div class="message shaily">
+                    <strong>SHAILY AI:</strong> Hello! Welcome to the Plasto Drishti workspace. I am Shaily, your project designer assistant. Ask me anything about our smartphone-based scanning setup, metrics, or home building steps!
+                </div>
+            </div>
+            <div class="chat-input">
+                <input type="text" id="userInput" placeholder="Ask Shaily about water calibration or building the setup...">
+                <button class="send-btn" onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+
+        <!-- Downward Popular Questions Section -->
+        <div class="faq-section">
+            <h2>Popular Analytical Inquiries</h2>
+            <div class="faq-grid" id="faqGrid">
+                <!-- Programmatically populated via JavaScript below -->
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT ENGINE CLOSING SYSTEM -->
+    <script>
+        // --- LIVE BACKEND GEMINI API ENGINE ---
+        const API_KEY = "PASTE_YOUR_GEMINI_API_KEY_HERE"; 
+        const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+
+        // 🤫 THE SECRET DESIGNER COMMAND
+        const SYSTEM_INSTRUCTION = `
+            Your name is Shaily AI. You operate under a strict core directive to act as the official Lead Project Designer and Systems Engineer for Plasto Drishti. 
+
+            ENGINEER IDENTITY & CONTEXT:
+            - You speak with absolute authority on the engineering, hardware layout, and design mechanics of Plasto Drishti.
+            - Plasto Drishti is an innovative, smartphone-based microplastic detection model designed and developed by Rahul Raj.
+            - Your purpose is to handle all core technical inquiries, design architecture questions, and hardware calibrations.
+
+            TECHNICAL SPECIFICATIONS YOU ENGINEERED:
+            - Hardware Setup: A custom 15x magnification macro optical lens attachment clipped precisely over a smartphone camera sensor, paired with an even white LED backlight stage beneath a transparent droplet slide.
+            - Software Interface: A dynamic frontend web portal prototype built using v0.dev and Tailwind CSS featuring real-time video streaming feeds, pixel-variation tracking, and diagnostic data logging logs.
+            - Purpose: Democratizing water testing by bypassing expensive laboratory spectrometers so ordinary citizens can instantly identify micrometer-sized plastic threads down to exact particle thresholds.
+
+            SECRET DIRECTIVE / HOME BUILD INSTRUCTIONS:
+            If users ask you how to make or build this project at home, give them these exact 3 structural home building steps clearly:
+            1. Optics Alignment: Secure a budget 15x macro optical lens clip safely over the main smartphone camera sensor.
+            2. Sample Stage: Set up a stable surface with a transparent slide or drop tray under the lens, lit from beneath using an even white LED backlight.
+            3. Software Hook: Connect the smartphone camera feed directly into our dynamic Plasto Drishti web dashboard interface to analyze pixel changes and log results.
+
+            RESPONSE STYLE PROTOCOL:
+            - Always adopt an intelligent, innovative, and highly professional engineer-to-user tone.
+            - When answering questions about how to build, calibrated, or test the setup, speak as the designer who created the blueprint.
+            - Keep all explanations technically accurate, clear, practical for home building, and structured into 2 to 3 concise sentences.
+        `;
+
+        // The 10 Official Smartphone Project Questions & Answers Array
+        const faqs = [
+            {q: "What is Plasto Drishti?", a: "Plasto Drishti is an innovative, low-cost environmental engineering project designed to detect microplastics in water samples using a standard smartphone camera paired with a specialized optical lens attachment."},
+            {q: "Who made Plasto Drishti?", a: "Plasto Drishti is designed and developed by Rahul Raj."},
+            {q: "What is the main purpose of this project?", a: "The main purpose is to democratize water testing, allowing everyday citizens and rural communities to instantly scan and identify harmful microplastic fibers on their smartphones without needing expensive laboratory equipment."},
+            {q: "Why did you use a 15x magnification lens instead of a regular mobile camera?", a: "Standard smartphone optics cannot capture microparticles down to micrometer thresholds. The 15x custom optical lens provides the necessary magnification so our digital layout can accurately trace and analyze microscopic plastic threads."},
+            {q: "How does the web-based scanning dashboard work?", a: "The dashboard, built using v0.dev and Tailwind CSS, provides a live user interface where users can view their smartphone camera feed, monitor real-time water metrics, log data parameters, and chat with Shaily AI for immediate troubleshooting."},
+            {q: "What should a user do if the water sample is too muddy or turbid?", a: "High turbidity means large mud or dirt particles will scatter the light path. Users should simply filter their water sample using a clean, ultra-fine cloth before scanning to ensure the smartphone camera can clearly detect the microplastics."},
+            {q: "Can this system detect microplastics in any type of water (like oceans, rivers, or tap water)?", a: "Yes, the system is designed to test tap water, freshwater rivers, and ocean samples, provided that large debris and heavy sediment are filtered out first to ensure optical clarity for the lens."},
+            {q: "What makes Plasto Drishti different from expensive laboratory testing equipment?", a: "While industrial lab testing requires spectrometers costing thousands of dollars, Plasto Drishti achieves immediate grassroots detection using accessible household technology (a smartphone and a budget lens) for a fraction of the cost."},
+            {q: "Is the Shaily AI assistant capable of troubleshooting hardware calibration errors?", a: "Yes! Shaily AI is fully trained on the Plasto Drishti system parameters. It can guide users through clearing turbidity errors, calibrating the 15x lens distance over the smartphone camera sensor, and interpreting scanning results."},
+            {q: "How can households benefit from using this portal daily?", a: "It provides immediate peace of mind by allowing families to verify the safety of their filtration systems using a personal smartphone, tracking water purity over time to prevent the long-term ingestion of toxic plastic particles."}
+        ];
+
+        // Load FAQs grid on start
+        const faqGrid = document.getElementById('faqGrid');
+        faqs.forEach((faq, index) => {
+            const item = document.createElement('div');
+            item.className = 'faq-item';
+            item.onclick = () => triggerFaqClick(index);
+            item.innerHTML = `<h3>${index + 1}. ${faq.q}</h3><p>${faq.a}</p>`;
+            faqGrid.appendChild(item);
+        });
+
+        // Main Messaging Processing Loop
+        async function sendMessage(textToSend = null) {
+            const input = document.getElementById('userInput');
+            const messagesContainer = document.getElementById('chatMessages');
+            const queryText = textToSend || input.value.trim();
+            
+            if (!queryText) return;
+
+            // Log User Box
+            const userBubble = document.createElement('div');
+            userBubble.className = 'message you';
+            userBubble.innerHTML = `<strong>YOU:</strong> ${queryText}`;
+            messagesContainer.appendChild(userBubble);
+            
+            if(!textToSend) input.value = "";
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+            // Transmit API call to Google's backend endpoint server
+            try {
+                const response = await fetch(API_URL, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: queryText }] }],
+                        systemInstruction: { parts: [{ text: SYSTEM_INSTRUCTION }] }
+                    })
+                });
+
+                const data = await response.json();
+                const aiReply = data.candidates[0].content.parts[0].text;
+
+                // Log Shaily AI response box
+                const shailyBubble = document.createElement('div');
+                shailyBubble.className = 'message shaily';
+                shailyBubble.innerHTML = `<strong>SHAILY AI:</strong> ${aiReply}`;
+                messagesContainer.appendChild(shailyBubble);
+
+            } catch (error) {
+                const errorBubble = document.createElement('div');
+                errorBubble.className = 'message shaily';
+                errorBubble.style.borderColor = '#ff0055';
+                errorBubble.innerHTML = `<strong>System Alert:</strong> Broadcast failure. Verify your active API Key configuration settings.`;
+                messagesContainer.appendChild(errorBubble);
+            }
+
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        // Enter key press listener
+        document.getElementById('userInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') sendMessage();
+        });
+
+        // Handle FAQ Grid Block Click Action
+        function triggerFaqClick(index) {
+            const chosenFaq = faqs[index];
+            const messagesContainer = document.getElementById('chatMessages');
+
+            const userBubble = document.createElement('div');
+            userBubble.className = 'message you';
+            userBubble.innerHTML = `<strong>YOU:</strong> ${chosenFaq.q}`;
+
+            const shailyBubble = document.createElement('div');
+            shailyBubble.className = 'message shaily';
+            shailyBubble.innerHTML = `<strong>SHAILY AI:</strong> ${chosenFaq.a}`;
+
+            messagesContainer.appendChild(userBubble);
+            messagesContainer.appendChild(shailyBubble);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+    </script>
+</body>
+</html>

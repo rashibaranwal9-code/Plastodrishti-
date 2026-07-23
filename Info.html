@@ -7,8 +7,8 @@
   <!-- Tailwind via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- D3.js & TopoJSON for Real India Map Vector -->
-  <script src="https://d3js.org/d3.v7.min.js"></script>
-  <script src="https://d3js.org/topojson.v3.min.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
@@ -94,7 +94,7 @@
         <div class="relative w-full max-w-[450px] aspect-[4/5] flex items-center justify-center bg-slate-950/50 rounded-2xl overflow-hidden border border-slate-800">
           
           <!-- Real India Map SVG generated dynamically -->
-          <img src="https://upload.wikimedia.org/wikipedia/commons/1/18/India_location_map.svg" alt="India Map" class="w-full h-full object-contain opacity-40 invert brightness-200 contrast-125 p-2">
+          <div id="map" class="w-full h-full rounded-xl z-10 min-h-[400px]"></div>
 
           <!-- INTERACTIVE RIVER & LAKE PINS -->
           <!-- Rivers (Cyan) -->
@@ -278,6 +278,11 @@
         portalPanel.scrollIntoView({ behavior: 'smooth' });
       });
     });
+    const map = L.map('map').setView([20.5937, 78.9629], 5);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; OpenStreetMap contributors',
+    maxZoom: 10
+  }).addTo(map);
   </script>
 </body>
 </html>

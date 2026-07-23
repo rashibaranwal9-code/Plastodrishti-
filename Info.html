@@ -94,7 +94,7 @@
         <div class="relative w-full max-w-[450px] aspect-[4/5] flex items-center justify-center bg-slate-950/50 rounded-2xl overflow-hidden border border-slate-800">
           
           <!-- Real India Map SVG generated dynamically -->
-          <div id="map" class="w-full h-full rounded-xl z-10 min-h-[400px]"></div>
+          <div id="map" class="w-full h-[450px] rounded-2xl z-10 border border-slate-800 shadow-inner"></div>
 
           <!-- INTERACTIVE RIVER & LAKE PINS -->
           <!-- Rivers (Cyan) -->
@@ -283,6 +283,7 @@
     attribution: '&copy; OpenStreetMap contributors',
     maxZoom: 10
   }).addTo(map);
+  setTimeout(() => { map.invalidateSize(); }, 500);
   </script>
 </body>
 </html>

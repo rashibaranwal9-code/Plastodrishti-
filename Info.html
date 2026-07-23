@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>Plasto Drishti Infographics</title>
+  <!-- Tailwind via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: #020617; /* slate-950 */
+      margin: 0;
+      overflow-x: hidden;
+    }
+
+    /* neon glow utility for SVG elements */
+    .water-body {
+      fill: none;
+      stroke: #38bdf8;
+      stroke-width: 3.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.65));
+      cursor: pointer;
+      vector-effect: non-scaling-stroke;
+    }
+
+    ellipse.water-body {
+      fill: #0f2b4a;
+      fill-opacity: 0.6;
+    }
+
+    .water-body:hover {
+      fill-opacity: 0.8;
+      stroke: #7dd3fc;
+      filter: drop-shadow(0 0 16px #38bdf8) drop-shadow(0 0 8px #0284c7);
+      stroke-width: 4.5;
+    }
+
+    .water-body.active-glow {
+      fill-opacity: 0.9;
+      stroke: #f0f9ff;
+      filter: drop-shadow(0 0 24px #0ea5e9) drop-shadow(0 0 12px #0369a1);
+      stroke-width: 5;
+    }
+
+    .india-outline {
+      fill: #0b1329;
+      stroke: #475569;
+      stroke-width: 2.5;
+      stroke-linejoin: round;
+      filter: drop-shadow(0 0 15px rgba(59, 130, 246, 0.35));
+      vector-effect: non-scaling-stroke;
+      pointer-events: none;
+    }
+
+    /* card styles */
+    .data-card {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    }
+
+    .severity-badge {
+      background: rgba(2, 6, 23, 0.6);
+      backdrop-filter: blur(8px);
+      transition: all 0.3s ease;
+    }
+
+    /* Smooth scroll behavior when anchor links trigger on mobile */
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 antialiased min-h-screen flex flex-col">
+
+  <!-- Header -->
+  <header class="w-full px-6 py-4 md:py-5 flex items-center justify-between border-b border-slate-800/60 bg-slate-950/80 backdrop-blur-md sticky top-0 z-30">
+    <div class="flex items-center gap-3">
+      <div class="h-10 w-10 rounded-full bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center shadow-[0_0_20px_rgba(14,165,233,0.5)]">
+        <span class="text-white font-bold text-xl">💧</span>
+      </div>
+      <div>
+        <h1 class="text-2xl md:text-3xl font-bold tracking-tight bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-300 bg-clip-text text-transparent">
+          Plasto Drishti Infographics
+        </h1>
+      </div>
+    </div>
+    <div class="text-xs md:text-sm text-slate-400 border border-slate-800 px-4 py-1.5 rounded-full bg-slate-900/50">
+      🌊 15 Water Bodies Monitored
+    </div>
+  </header>
+
+  <!-- Main layout: split screen -->
+  <main class="flex-1 flex flex-col lg:flex-row w-full max-w-[1800px] mx-auto px-4 md:px-6 lg:px-8 py-6 gap-6">
+    
+    <!-- LEFT: Interactive SVG Map Layout -->
+    <section class="w-full lg:w-[55%] xl:w-[60%] flex flex-col relative min-h-[450px] md:min-h-[600px]">
+      <div class="w-full h-full bg-slate-900/20 rounded-3xl border border-slate-800/80 p-4 backdrop-blur-sm flex flex-col items-center justify-center shadow-2xl relative">
+        
+        <div class="absolute top-4 left-4 z-10 flex flex-col gap-1.5 text-xs text-slate-400 bg-slate-950/80 border border-slate-800 p-3 rounded-xl backdrop-blur-md">
+          <div class="flex items-center gap-2"><span class="w-3 h-1 bg-cyan-400 inline-block rounded-full shadow-[0_0_8px_#38bdf8]"></span> Lines represent Rivers</div>
+          <div class="flex items-center gap-2"><span class="w-3 h-2 bg-cyan-400/60 border border-cyan-400 inline-block rounded-full shadow-[0_0_8px_#38bdf8]"></span> Ovals represent Lakes</div>
+        </div>
+
+        <svg viewBox="0 0 600 650" preserveAspectRatio="xMidYMid meet" class="w-full h-full max-h-[620px] my-auto">
+          <!-- India map boundaries -->
+          <path class="india-outline" d="M300 30 L340 40 L390 65 L430 100 L460 140 L475 185 L490 220 L510 260 L525 310 L530 360 L520 410 L500 450 L480 480 L450 510 L410 540 L370 560 L330 575 L290 585 L250 590 L210 580 L175 560 L140 530 L110 490 L85 440 L70 390 L65 340 L75 290 L90 240 L110 190 L140 140 L180 95 L230 60 L265 42 Z" />
+          
+          <!-- RIVERS (10) -->
+          <path id="ganga" class="water-body" d="M240 140 Q280 180 320 220 T420 290" data-id="ganga" />
+          <path id="indus" class="water-body" d="M220 50 Q180 80 140 130 T120 220" data-id="indus" />
+          <path id="brahmaputra" class="water-body" d="M380 110 Q430 110 450 140 T440 250" data-id="brahmaputra" />
+          <path id="yamuna" class="water-body" d="M220 120 Q250 170 300 220 T360 260" data-id="yamuna" />
+          <path id="narmada" class="water-body" d="M160 330 Q230 330 300 330" data-id="narmada" />
+          <path id="tapi" class="water-body" d="M165 355 Q225 360 285 350" data-id="tapi" />
+          <path id="godavari" class="water-body" d="M180 400 Q260 410 330 460" data-id="godavari" />
+          <path id="krishna" class="water-body" d="M190 450 Q250 470 310 500" data-id="krishna" />
+          <path id="kaveri" class="water-body" d="M210 530 Q250 540 290 560" data-id="kaveri" />
+          <path id="mahanadi" class="water-body" d="M280 360 Q330 350 370 390" data-id="mahanadi" />
+
+          <!-- LAKES (5) -->
+          <ellipse id="wular" class="water-body" cx="180" cy="70" rx="12" ry="7" data-id="wular" />
+          <ellipse id="chilika" class="water-body" cx="365" cy="410" rx="15" ry="9" data-id="chilika" />
+          <ellipse id="vembanad" class="water-body" cx="225" cy="570" rx="9" ry="14" data-id="vembanad" />
+          <ellipse id="loktak" class="water-body" cx="465" cy="220" rx="10" ry="7" data-id="loktak" />
+          <ellipse id="pulicat" class="water-body" cx="295" cy="515" rx="11" ry="6" data-id="pulicat" />
+        </svg>
+
+        <div class="w-full text-center text-xs text-slate-500 mt-2">
+          📍 Direct Vector Mapping Layer · Touch or click an interactive asset
+        </div>
+      </div>
+    </section>
+
+    <!-- RIGHT: Dynamic Data Portal Panel -->
+    <section id="portal-panel" class="w-full lg:w-[45%] xl:w-[40%] flex flex-col scroll-mt-24">
+      <div id="info-panel" class="data-card p-6 md:p-8 rounded-3xl flex-1 flex flex-col min-h-[400px] transition-all duration-300">
+        
+        <!-- Placeholder state -->
+        <div id="placeholder-content" class="flex flex-col items-center justify-center text-center h-full my-auto py-12 space-y-5">
+          <div class="text-6xl md:text-7xl animate-pulse">🔬</div>
+          <h2 class="text-2xl font-semibold text-slate-200 tracking-tight">Environmental Data Portal</h2>
+          <p class="text-slate-400 max-w-sm text-sm md:text-base leading-relaxed">
+            Select an active glowing water body from the dashboard map to view contextualized microplastic pollution metrics, drainage vectors, and source variables.
+          </p>
+          <div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900 border border-slate-800 text-xs text-cyan-400">
+            <span>System Status: Online</span>
+          </div>
+        </div>
+
+        <!-- Dynamic detail content -->
+        <div id="detail-content" class="hidden flex-col space-y-6 h-full justify-between flex-1">
+          <div>
+            <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3 border-b border-slate-800/80 pb-4">
+              <div>
+                <h2 id="detail-name" class="text-3xl font-bold text-white tracking-tight"></h2>
+                <span id="detail-type" class="text-[10px] font-bold uppercase tracking-widest text-cyan-400 bg-cyan-950/60 border border-cyan-900 px-2.5 py-0.5 rounded-md mt-2 inline-block"></span>
+              </div>
+              <div id="severity-container" class="severity-badge px-4 py-1.5 rounded-full flex items-center gap-2 border self-start">
+                <span class="h-2 w-2 rounded-full bg-yellow-400 shadow-[0_0_8px_currentColor]"></span>
+                <span id="severity-level" class="text-xs font-bold uppercase tracking-wider"></span>
+              </div>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6 text-sm">
+              <div class="bg-slate-900/60 rounded-2xl p-4 border border-slate-800">
+                <p class="text-slate-400 text-xs font-semibold uppercase tracking-wider mb-1.5">🏙️ Impacted Hubs / Cities</p>
+                <p id="detail-cities" class="font-medium text-slate-200 leading-relaxed"></p>
+              </div>
+              <div class="bg-slate-900/60 rounded-2xl p-4 border border-slate-800">
+                <p class="text-slate-400 text-xs font-semibold uppercase tracking-wider mb-1.5">🌊 Drainage Endpoint</p>
+                <p id="detail-drains" class="font-medium text-slate-200"></p>
+              </div>
+            </div>
+            
+            <div class="bg-slate-900/40 rounded-2xl p-5 border border-slate-800/80 mt-4">
+              <p class="text-slate-400 text-xs font-semibold uppercase tracking-wider mb-2.5">🧴 Primary Microplastic Vectors</p>
+              <p id="detail-reasons" class="text-slate-300 leading-relaxed text-sm md:text-base"></p>
+            </div>
+          </div>
+          
+          <div class="mt-8 pt-4 border-t border-slate-950 text-xs text-slate-500 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="h-1.5 w-1.5 bg-cyan-500 rounded-full animate-ping"></span> Live Node Telemetry
+            </div>
+            <span>Dataset Ref: PD-2026</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="text-center text-[10px] text-slate-600 py-4 border-t border-slate-900/50 mt-auto bg-slate-950">
+    © 2026 Plasto Drishti — Microplastic surveillance network · Indian water bodies
+  </footer>
+
+  <script>
+    (function() {
+      const waterData = {
+        ganga: {
+          name: "Ganga (Ganges)",
+          type: "River",
+          cities: "Kanpur, Varanasi, Allahabad, Patna, Kolkata",
+          drains: "Bay of Bengal",
+          reasons: "Heavy dumping of textile effluents (Kanpur industrial cluster), unmanaged municipal plastic debris, industrial waste streams, remnants of religious offerings wrapped in synthetic sheets, and primary cosmetics micro-beads flowing via major urban nullahs.",
+          severity: "Very High"
+        },
+        indus: {
+          name: "Indus",
+          type: "River",
+          cities: "Leh, Gilgit, Skardu region",
+          drains: "Arabian Sea",
+          reasons: "Surging adventure tourism plastic accumulation in Ladakh heights, direct synthetic fiber washing, erosion from agricultural plastic sheeting layers, and minimal mountain-town sorting centers.",
+          severity: "Moderate"
+        },
+        brahmaputra: {
+          name: "Brahmaputra",
+          type: "River",
+          cities: "Guwahati, Dibrugarh, Tezpur, Dhubri",
+          drains: "Bay of Bengal (via Bangladesh)",
+          reasons: "Polyester and packaging trash items from commercial tea gardens, abandoned high-tensile fishing nets, municipal stormwater flows from Guwahati, cross-border packaging materials, and heavy monsoon flash scouring.",
+          severity: "High"
+        },
+        yamuna: {
+          name: "Yamuna",
+          type: "River",
+          cities: "Delhi, Agra, Mathura, Etawah",
+          drains: "Ganga (at Prayagraj)",
+          reasons: "Massive volume of macro and micro-plastics from untreated domestic sludge, direct chemical run-off from illegal dyeing clusters, heavy plastic packaging downpour, and rubber tire wear fragments swept off Delhi's dense arterial roads.",
+          severity: "Critical"
+        },
+        narmada: {
+          name: "Narmada",
+          type: "River",
+          cities: "Jabalpur, Hoshangabad, Bharuch",
+          drains: "Arabian Sea (Gulf of Khambhat)",
+          reasons: "Industrial outfalls from processing facilities, continuous non-biodegradable pilgrim items, micro-shreds from farming sheets, and tourist packaging garbage discarded along active river ghats.",
+          severity: "Moderate-High"
+        },
+        tapi: {
+          name: "Tapi (Tapti)",
+          type: "River",
+          cities: "Surat, Burhanpur, Bhusawal",
+          drains: "Arabian Sea (Gulf of Khambhat)",
+          reasons: "Massive texturized micro-fiber pollution from synthetic weaving clusters (Surat mills), commercial plastic wrappers, and secondary urban garbage washed out through internal industrial storm outlets.",
+          severity: "High"
+        },
+        godavari: {
+          name: "Godavari",
+          type: "River",
+          cities: "Nashik, Nanded, Rajahmundry",
+          drains: "Bay of Bengal",
+          reasons: "Decayed agricultural shade-net pieces, localized aquaculture rope debris, high-concentration episodic plastic dumping during festival gatherings (Nashik), and intensive multi-layer retail packaging pollution.",
+          severity: "High"
+        },
+        krishna: {
+          name: "Krishna",
+          type: "River",
+          cities: "Vijayawada, Sangli, Satara",
+          drains: "Bay of Bengal",
+          reasons: "Polymer packaging from agro-chemical usage in the sugarcane belt, household sewage micro-particles, degradation of abandoned nylon fishing lines, and high daily usage of commercial grooming micro-beads.",
+          severity: "Moderate-High"
+        },
+        kaveri: {
+          name: "Kaveri (Cauvery)",
+          type: "River",
+          cities: "Tiruchirappalli, Erode, Mysore, Thanjavur",
+          drains: "Bay of Bengal",
+          reasons: "Textile washing/processing discharges (Erode & Tirupur knitwear apparel belt), deep chemical dyeing synthetic residues, shredded plastic sheets from crop fields, and high municipal density accumulation.",
+          severity: "High"
+        },
+        mahanadi: {
+          name: "Mahanadi",
+          type: "River",
+          cities: "Cuttack, Sambalpur, Raipur (basin)",
+          drains: "Bay of Bengal",
+          reasons: "Raw industrial plastic manufacturing pellets (nurdles) from industrial zones, unmanaged residential town garbage from Cuttack, shipping/dockyard gear fragments, and monsoonal sweepings of macro-trash.",
+          severity: "Moderate"
+        },
+        wular: {
+          name: "Wular Lake",
+          type: "Lake",
+          cities: "Srinagar (periphery), Bandipora",
+          drains: "Jhelum River",
+          reasons: "Accumulated consumer plastic containers from high-volume tourism, unchecked household waste drop from waterfront settlements, synthetic carpet/textile fibers originating from houseboats, and old fishing gear degradation.",
+          severity: "Moderate"
+        },
+        chilika: {
+          name: "Chilika Lake",
+          type: "Lake",
+          cities: "Puri, Balugaon, Satapada",
+          drains: "Bay of Bengal (seasonal)",
+          reasons: "Disintegrated poly-styrene (Thermocol) floats from intensive commercial shrimp farming, micro-shreds of nylon monofilament gill nets, high tourist boat fuel-mix contaminants, and macro-plastic rope fiber weathering.",
+          severity: "High"
+        },
+        vembanad: {
+          name: "Vembanad Lake",
+          type: "Lake",
+          cities: "Kochi, Alappuzha, Kottayam",
+          drains: "Arabian Sea",
+          reasons: "High density of non-treated liquid wastes from luxury houseboats, synthetic polymer friction fields from the coir industry, intense city runoff from Kochi metropolitan canals, micro-beads, and floating tourist plastic packaging items.",
+          severity: "Very High"
+        },
+        loktak: {
+          name: "Loktak Lake",
+          type: "Lake",
+          cities: "Imphal (basin), Moirang",
+          drains: "Manipur River",
+          reasons: "Entrapped macro and micro-plastics deeply embedded within decomposing floating landmasses (Phumdis), direct household refuse from fishing phumdi-huts, surface tourist littering, and limited municipal waste removal systems.",
+          severity: "Moderate"
+        },
+        pulicat: {
+          name: "Pulicat Lake",
+          type: "Lake",
+          cities: "Chennai (North), Sullurpeta, Sriharikota",
+          drains: "Bay of Bengal",
+          reasons: "Industrial outfall pipelines from nearby structural manufacturing loops, heavy wear friction from fishing boat nets, urban industrial trash lines from North Chennai, and marine tidal plastic dumpbacks.",
+          severity: "Moderate-High"
+        }
+      };
+
+      const placeholderDiv = document.getElementById('placeholder-content');
+      const detailDiv = document.getElementById('detail-content');
+      const detailName = document.getElementById('detail-name');
+      const detailType = document.getElementById('detail-type');
+      const severityLevel = document.getElementById('severity-level');
+      const detailCities = document.getElementById('detail-cities');
+      const detailDrains = document.getElementById('detail-drains');
+      const detailReasons = document.getElementById('detail-reasons');
+      const severityContainer = document.getElementById('severity-container');
+      const portalPanel = document.getElementById('portal-panel');
+      const waterElements = document.querySelectorAll('.water-body');
+      
+      function clearActiveGlow() {
+        waterElements.forEach(el => el.classList.remove('active-glow'));
+      }
+
+      function updatePanel(waterId) {
+        const data = waterData[waterId];
+        if (!data) return;
+        
+        placeholderDiv.classList.add('hidden');
+        detailDiv.classList.remove('hidden');
+        detailDiv.classList.flex = "1";
+        detailDiv.style.display = "flex";
+        
+        detailName.textContent = data.name;
+        detailType.textContent = data.type;
+        severityLevel.textContent = data.severity;
+        detailCities.textContent = data.cities;
+        detailDrains.textContent = data.drains;
+        detailReasons.textContent = data.reasons;
+        
+        const severityText = data.severity.toLowerCase();
+        
+        severityContainer.className = "severity-badge px-4 py-1.5 rounded-full flex items-center gap-2 border self-start";
+        const indicatorDot = severityContainer.querySelector('span');
+        
+        if (severityText.includes('critical') || severityText.includes('very high')) {
+          severityContainer.classList.add('border-red-500/50', 'bg-red-950/30');
+          severityLevel.className = "text-xs font-bold uppercase tracking-wider text-red-300";
+          indicatorDot.className = "h-2 w-2 rounded-full bg-red-500 shadow-[0_0_8px_#ef4444] animate-pulse";
+        } else if (severityText.includes('high')) {
+          severityContainer.classList.add('border-orange-500/50', 'bg-orange-950/30');
+          severityLevel.className = "text-xs font-bold uppercase tracking-wider text-orange-300";
+          indicatorDot.className = "h-2 w-2 rounded-full bg-orange-500 shadow-[0_0_8px_#f97316] animate-pulse";
+        } else {
+          severityContainer.classList.add('border-yellow-500/50', 'bg-yellow-950/30');
+          severityLevel.className = "text-xs font-bold uppercase tracking-wider text-yellow-300";
+          indicatorDot.className = "h-2 w-2 rounded-full bg-yellow-400 shadow-[0_0_8px_#facc15] animate-pulse";
+        }
+
+        if (window.innerWidth < 1024) {
+          portalPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+
+      waterElements.forEach(el => {
+     

@@ -6,17 +6,20 @@
   <title>Plasto Drishti Infographics</title>
   <!-- Tailwind via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- D3.js & TopoJSON for Real India Map Vector -->
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://d3js.org/topojson.v3.min.js"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
     body {
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      background: #020617; /* slate-950 */
+      background: #020617;
       margin: 0;
       overflow-x: hidden;
     }
 
-    /* Hotspot markers on top of real map */
+    /* Hotspot markers */
     .river-pin {
       position: absolute;
       transform: translate(-50%, -50%);
@@ -30,7 +33,7 @@
       z-index: 30;
     }
 
-    /* card styles */
+    /* Card styling */
     .data-card {
       background: rgba(15, 23, 42, 0.85);
       backdrop-filter: blur(20px);
@@ -46,6 +49,14 @@
 
     html {
       scroll-behavior: smooth;
+    }
+
+    /* Dynamic SVG India map paths */
+    .country-border {
+      fill: #0f172a;
+      stroke: #38bdf8;
+      stroke-width: 1.5;
+      filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.4));
     }
   </style>
 </head>
@@ -71,7 +82,7 @@
   <!-- Main layout -->
   <main class="flex-1 flex flex-col lg:flex-row w-full max-w-[1600px] mx-auto px-4 py-6 gap-6">
     
-    <!-- LEFT: Real Map of India Container -->
+    <!-- LEFT: Real India Map Container -->
     <section class="w-full lg:w-[50%] flex flex-col relative">
       <div class="w-full bg-slate-900/40 rounded-3xl border border-slate-800 p-4 flex flex-col items-center justify-center relative shadow-2xl">
         
@@ -79,45 +90,43 @@
           📍 Tap any glowing river/lake tag on the map to see data
         </p>
 
-        <!-- Container holding the real India Map image + Interactive Pins -->
+        <!-- Container holding the real India Map SVG + Interactive Pins -->
         <div class="relative w-full max-w-[450px] aspect-[4/5] flex items-center justify-center bg-slate-950/50 rounded-2xl overflow-hidden border border-slate-800">
           
-          <!-- Real outline map image of India -->
-          <img src="https://upload.wikimedia.org/wikipedia/commons/1/18/India_location_map.svg" 
-               alt="Map of India" 
-               class="w-full h-full object-contain opacity-40 invert brightness-200 contrast-125 p-2">
+          <!-- Real India Map SVG generated dynamically -->
+          <svg id="india-map-svg" class="w-full h-full p-2" viewBox="0 0 500 600"></svg>
 
           <!-- INTERACTIVE RIVER & LAKE PINS -->
-          <!-- Rivers (Cyan Blue) -->
-          <button data-id="ganga" class="river-pin top-[32%] left-[58%] bg-cyan-500/20 border border-cyan-400 text-cyan-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#38bdf8]">🌊 Ganga</button>
+          <!-- Rivers (Cyan) -->
+          <button data-id="ganga" class="river-pin top-[38%] left-[58%] bg-cyan-500/20 border border-cyan-400 text-cyan-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#38bdf8]">🌊 Ganga</button>
+          <button data-id="yamuna" class="river-pin top-[36%] left-[45%] bg-cyan-500/20 border border-cyan-400 text-cyan-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#38bdf8]">🌊 Yamuna</button>
           
-          <button data-id="yamuna" class="river-pin top-[30%] left-[45%] bg-cyan-500/20 border border-cyan-400 text-cyan-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#38bdf8]">🌊 Yamuna</button>
-          <button data-id="indus" class="river-pin top-[15%] left-[28%] bg-cyan-500/20 border border-cyan-400 text-cyan-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#38bdf8]">🌊 Indus</button>
+          <button data-id="indus" class="river-pin top-[20%] left-[30%] bg-cyan-500/20 border border-cyan-400 text-cyan-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#38bdf8]">🌊 Indus</button>
           
-          <button data-id="brahmaputra" class="river-pin top-[28%] left-[82%] bg-cyan-500/20 border border-cyan-400 text-cyan-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#38bdf8]">🌊 Brahmaputra</button>
+          <button data-id="brahmaputra" class="river-pin top-[34%] left-[84%] bg-cyan-500/20 border border-cyan-400 text-cyan-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#38bdf8]">🌊 Brahmaputra</button>
           
-          <button data-id="narmada" class="river-pin top-[48%] left-[38%] bg-cyan-500/20 border border-cyan-400 text-cyan-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#38bdf8]">🌊 Narmada</button>
+          <button data-id="narmada" class="river-pin top-[52%] left-[38%] bg-cyan-500/20 border border-cyan-400 text-cyan-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#38bdf8]">🌊 Narmada</button>
           
-          <button data-id="tapi" class="river-pin top-[53%] left-[36%] bg-cyan-500/20 border border-cyan-400 text-cyan-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#38bdf8]">🌊 Tapi</button>
+          <button data-id="tapi" class="river-pin top-[56%] left-[36%] bg-cyan-500/20 border border-cyan-400 text-cyan-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#38bdf8]">🌊 Tapi</button>
           
-          <button data-id="godavari" class="river-pin top-[59%] left-[48%] bg-cyan-500/20 border border-cyan-400 text-cyan-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#38bdf8]">🌊 Godavari</button>
+          <button data-id="godavari" class="river-pin top-[62%] left-[48%] bg-cyan-500/20 border border-cyan-400 text-cyan-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#38bdf8]">🌊 Godavari</button>
           
-          <button data-id="mahanadi" class="river-pin top-[50%] left-[62%] bg-cyan-500/20 border border-cyan-400 text-cyan-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#38bdf8]">🌊 Mahanadi</button>
+          <button data-id="mahanadi" class="river-pin top-[54%] left-[62%] bg-cyan-500/20 border border-cyan-400 text-cyan-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#38bdf8]">🌊 Mahanadi</button>
           
-          <button data-id="krishna" class="river-pin top-[67%] left-[45%] bg-cyan-500/20 border border-cyan-400 text-cyan-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#38bdf8]">🌊 Krishna</button>
+          <button data-id="krishna" class="river-pin top-[70%] left-[46%] bg-cyan-500/20 border border-cyan-400 text-cyan-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#38bdf8]">🌊 Krishna</button>
           
-          <button data-id="kaveri" class="river-pin top-[78%] left-[44%] bg-cyan-500/20 border border-cyan-400 text-cyan-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#38bdf8]">🌊 Kaveri</button>
+          <button data-id="kaveri" class="river-pin top-[80%] left-[44%] bg-cyan-500/20 border border-cyan-400 text-cyan-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#38bdf8]">🌊 Kaveri</button>
 
           <!-- Lakes (Emerald Green) -->
-          <button data-id="wular" class="river-pin top-[12%] left-[32%] bg-emerald-500/20 border border-emerald-400 text-emerald-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#10b981]">💧 Wular</button>
+          <button data-id="wular" class="river-pin top-[16%] left-[32%] bg-emerald-500/20 border border-emerald-400 text-emerald-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#10b981]">💧 Wular</button>
           
-          <button data-id="chilika" class="river-pin top-[55%] left-[65%] bg-emerald-500/20 border border-emerald-400 text-emerald-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#10b981]">💧 Chilika</button>
+          <button data-id="chilika" class="river-pin top-[58%] left-[65%] bg-emerald-500/20 border border-emerald-400 text-emerald-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#10b981]">💧 Chilika</button>
           
-          <button data-id="loktak" class="river-pin top-[35%] left-[88%] bg-emerald-500/20 border border-emerald-400 text-emerald-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#10b981]">💧 Loktak</button>
+          <button data-id="loktak" class="river-pin top-[40%] left-[88%] bg-emerald-500/20 border border-emerald-400 text-emerald-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#10b981]">💧 Loktak</button>
           
-          <button data-id="pulicat" class="river-pin top-[72%] left-[52%] bg-emerald-500/20 border border-emerald-400 text-emerald-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#10b981]">💧 Pulicat</button>
+          <button data-id="pulicat" class="river-pin top-[75%] left-[52%] bg-emerald-500/20 border border-emerald-400 text-emerald-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#10b981]">💧 Pulicat</button>
           
-          <button data-id="vembanad" class="river-pin top-[85%] left-[40%] bg-emerald-500/20 border border-emerald-400 text-emerald-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#10b981]">💧 Vembanad</button>
+          <button data-id="vembanad" class="river-pin top-[86%] left-[40%] bg-emerald-500/20 border border-emerald-400 text-emerald-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#10b981]">💧 Vembanad</button>
 
         </div>
       </div>
@@ -181,6 +190,29 @@
   </footer>
 
   <script>
+    // Fetch and draw real India Geographic outline
+    const svg = d3.select("#india-map-svg");
+    const width = 500, height = 600;
+
+    const projection = d3.geoMercator()
+      .center([78.9629, 22.5937])
+      .scale(850)
+      .translate([width / 2, height / 2 + 30]);
+
+    const path = d3.geoPath().projection(projection);
+
+    fetch('https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson')
+      .then(res => res.json())
+      .then(data => {
+        const indiaData = data.features.find(f => f.properties.ADMIN === "India" || f.properties.ISO_A3 === "IND");
+        if (indiaData) {
+          svg.append("path")
+            .datum(indiaData)
+            .attr("class", "country-border")
+            .attr("d", path);
+        }
+      });
+
     const waterData = {
       ganga: { name: "Ganga (Ganges)", type: "River", cities: "Kanpur, Varanasi, Allahabad, Patna, Kolkata", drains: "Bay of Bengal", reasons: "Heavy dumping of textile effluents (Kanpur industrial cluster), unmanaged municipal plastic debris, industrial waste streams, and primary cosmetics micro-beads.", severity: "Very High" },
       indus: { name: "Indus", type: "River", cities: "Leh, Gilgit, Skardu region", drains: "Arabian Sea", reasons: "Surging adventure tourism plastic accumulation in Ladakh heights, direct synthetic fiber washing, and erosion from agricultural plastic sheeting.", severity: "Moderate" },
@@ -211,7 +243,6 @@
     const indicatorDot = document.getElementById('indicator-dot');
     const portalPanel = document.getElementById('portal-panel');
     const buttons = document.querySelectorAll('.river-pin');
-
     buttons.forEach(btn => {
       btn.addEventListener('click', () => {
         const waterId = btn.getAttribute('data-id');
@@ -224,6 +255,7 @@
         placeholderDiv.classList.add('hidden');
         detailDiv.classList.remove('hidden');
         detailDiv.style.display = 'flex';
+
         detailName.textContent = data.name;
         detailType.textContent = data.type;
         severityLevel.textContent = data.severity;
@@ -243,7 +275,6 @@
           indicatorDot.className = "h-2 w-2 rounded-full bg-yellow-400 animate-pulse";
         }
 
-        // Automatic scroll to details box on mobile screens
         portalPanel.scrollIntoView({ behavior: 'smooth' });
       });
     });

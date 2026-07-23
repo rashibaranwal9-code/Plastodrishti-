@@ -94,39 +94,44 @@
         <div class="relative w-full max-w-[450px] aspect-[4/5] flex items-center justify-center bg-slate-950/50 rounded-2xl overflow-hidden border border-slate-800">
           
           <!-- Real India Map SVG generated dynamically -->
-          <div id="map" class="w-full h-[450px] rounded-2xl z-10 border border-slate-800 shadow-inner"></div>
-
+          <!-- India Map Container with Image and Overlay Markers -->
+<div class="relative w-full h-[500px] bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 flex items-center justify-center">
+  
+  <!-- India Map Image -->
+  <img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/India_map_blank.svg" 
+       alt="India Map" 
+       class="h-full w-auto object-contain opacity-40 invert filter drop-shadow-[0_0_10px_rgba(56,189,248,0.3)] pointer-events-none z-0" />
           <!-- INTERACTIVE RIVER & LAKE PINS -->
           <!-- Rivers (Cyan) -->
-          <button data-id="ganga" class="river-pin top-[38%] left-[58%] bg-cyan-500/20 border border-cyan-400 text-cyan-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#38bdf8]">🌊 Ganga</button>
-          <button data-id="yamuna" class="river-pin top-[36%] left-[45%] bg-cyan-500/20 border border-cyan-400 text-cyan-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#38bdf8]">🌊 Yamuna</button>
+          <button data-id="ganga" onclick="showDetails('ganga')" class="river-pin top-[38%] left-[58%] bg-cyan-500/20 border border-cyan-400 text-cyan-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#38bdf8]">🌊 Ganga</button>
+          <button data-id="yamuna" onclick="showDetails('yamuna')" class="river-pin top-[36%] left-[45%] bg-cyan-500/20 border border-cyan-400 text-cyan-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#38bdf8]">🌊 Yamuna</button>
           
-          <button data-id="indus" class="river-pin top-[20%] left-[30%] bg-cyan-500/20 border border-cyan-400 text-cyan-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#38bdf8]">🌊 Indus</button>
+          <button data-id="indus" onclick="showDetails('indus')" class="river-pin top-[20%] left-[30%] bg-cyan-500/20 border border-cyan-400 text-cyan-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#38bdf8]">🌊 Indus</button>
           
-          <button data-id="brahmaputra" class="river-pin top-[34%] left-[84%] bg-cyan-500/20 border border-cyan-400 text-cyan-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#38bdf8]">🌊 Brahmaputra</button>
+          <button data-id="brahmaputra" onclick="showDetails('brahmaputra')" class="river-pin top-[34%] left-[84%] bg-cyan-500/20 border border-cyan-400 text-cyan-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#38bdf8]">🌊 Brahmaputra</button>
           
-          <button data-id="narmada" class="river-pin top-[52%] left-[38%] bg-cyan-500/20 border border-cyan-400 text-cyan-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#38bdf8]">🌊 Narmada</button>
+          <button data-id="narmada" onclick="showDetails('narmada')" class="river-pin top-[52%] left-[38%] bg-cyan-500/20 border border-cyan-400 text-cyan-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#38bdf8]">🌊 Narmada</button>
           
-          <button data-id="tapi" class="river-pin top-[56%] left-[36%] bg-cyan-500/20 border border-cyan-400 text-cyan-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#38bdf8]">🌊 Tapi</button>
+          <button data-id="tapi" onclick ="showDetails('tapi')" class="river-pin top-[56%] left-[36%] bg-cyan-500/20 border border-cyan-400 text-cyan-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#38bdf8]">🌊 Tapi</button>
           
-          <button data-id="godavari" class="river-pin top-[62%] left-[48%] bg-cyan-500/20 border border-cyan-400 text-cyan-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#38bdf8]">🌊 Godavari</button>
+          <button data-id="godavari" onclick ="showDetails('godavari')" class="river-pin top-[62%] left-[48%] bg-cyan-500/20 border border-cyan-400 text-cyan-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#38bdf8]">🌊 Godavari</button>
           
-          <button data-id="mahanadi" class="river-pin top-[54%] left-[62%] bg-cyan-500/20 border border-cyan-400 text-cyan-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#38bdf8]">🌊 Mahanadi</button>
+          <button data-id="mahanadi" onclick ="showDetails('mahanadi')" class="river-pin top-[54%] left-[62%] bg-cyan-500/20 border border-cyan-400 text-cyan-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#38bdf8]">🌊 Mahanadi</button>
           
-          <button data-id="krishna" class="river-pin top-[70%] left-[46%] bg-cyan-500/20 border border-cyan-400 text-cyan-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#38bdf8]">🌊 Krishna</button>
+          <button data-id="krishna" onclick ="showDetails('krishna')" class="river-pin top-[70%] left-[46%] bg-cyan-500/20 border border-cyan-400 text-cyan-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#38bdf8]">🌊 Krishna</button>
           
-          <button data-id="kaveri" class="river-pin top-[80%] left-[44%] bg-cyan-500/20 border border-cyan-400 text-cyan-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#38bdf8]">🌊 Kaveri</button>
+          <button data-id="kaveri" onclick ="showDetails('kaveri')" class="river-pin top-[80%] left-[44%] bg-cyan-500/20 border border-cyan-400 text-cyan-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#38bdf8]">🌊 Kaveri</button>
 
           <!-- Lakes (Emerald Green) -->
-          <button data-id="wular" class="river-pin top-[16%] left-[32%] bg-emerald-500/20 border border-emerald-400 text-emerald-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#10b981]">💧 Wular</button>
+          <button data-id="wular" onclick ="showDetails('wular')" class="river-pin top-[16%] left-[32%] bg-emerald-500/20 border border-emerald-400 text-emerald-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#10b981]">💧 Wular</button>
           
-          <button data-id="chilika" class="river-pin top-[58%] left-[65%] bg-emerald-500/20 border border-emerald-400 text-emerald-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#10b981]">💧 Chilika</button>
+          <button data-id="chilika" onclick ="showDetails('chilika')" class="river-pin top-[58%] left-[65%] bg-emerald-500/20 border border-emerald-400 text-emerald-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#10b981]">💧 Chilika</button>
           
-          <button data-id="loktak" class="river-pin top-[40%] left-[88%] bg-emerald-500/20 border border-emerald-400 text-emerald-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#10b981]">💧 Loktak</button>
+          <button data-id="loktak" onclick ="showDetails('loktak')" class="river-pin top-[40%] left-[88%] bg-emerald-500/20 border border-emerald-400 text-emerald-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#10b981]">💧 Loktak</button>
           
-          <button data-id="pulicat" class="river-pin top-[75%] left-[52%] bg-emerald-500/20 border border-emerald-400 text-emerald-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#10b981]">💧 Pulicat</button>
+          <button data-id="pulicat" onclick ="showDetails('pulicat')" class="river-pin top-[75%] left-[52%] bg-emerald-500/20 border border-emerald-400 text-emerald-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#10b981]">💧 Pulicat</button>
           
-          <button data-id="vembanad" class="river-pin top-[86%] left-[40%] bg-emerald-500/20 border border-emerald-400 text-emerald-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#10b981]">💧 Vembanad</button>
+          <button data-id="vembanad" onclick="showDetails('vembanad')" class="river-pin top-[86%] left-[40%] bg-emerald-500/20 border border-emerald-400 text-emerald-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_#10b981]">💧 Vembanad</button>
 
         </div>
       </div>

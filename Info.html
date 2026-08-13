@@ -413,12 +413,11 @@
         zoomControl: true
       });
 
-      // Dark CartoDB Map Tiles
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; OpenStreetMap &copy; CARTO',
-        subdomains: 'abcd',
-        maxZoom: 18
-      }).addTo(map);
+      // Satellite View (Option 3)
+L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+  attribution: 'Tiles &copy; Esri',
+  maxZoom: 18
+}).addTo(map);
 
       // DOM Elements
       const portalPanel = document.getElementById('portalPanel');

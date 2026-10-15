@@ -32,26 +32,22 @@
   </script>
 
   <style>
-    /* Dark Theme Leaflet Map Customization */
-    .leaflet-container {
-      background-color: #020617 !important;
-      font-family: 'Inter', sans-serif;
-    }
+  /* Dark Theme Leaflet Map Customization */
+  .leaflet-container {
+    background-color: #020617 !important;
+    font-family: 'Inter', sans-serif;
+  }
 
-    /* Custom Leaflet Button Icon Container Reset */
-    .leaflet-marker-icon.custom-btn-icon {
-      background: none !important;
-      border: none !important;
-    }
+  .leaflet-tile-pane {
+    filter: invert(100%) hue-rotate(180deg) brightness(90%) contrast(90%);
+  }
 
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: #0f172a; }
-    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
-  </style>
-</head>
-
-<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans antialiased selection:bg-cyan-500 selection:text-slate-950">
+  /* Custom Leaflet Button Icon Container Reset */
+  .leaflet-marker-icon.custom-btn-icon {
+    background: none !important;
+    border: none !important;
+  }
+    "bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans antialiased selection:bg-cyan-500 selection:text-slate-950">
 
   <!-- ================= TOP NAVIGATION BAR ================= -->
   <header class="sticky top-0 z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-800/80 px-4 lg:px-8 py-4">
@@ -413,11 +409,10 @@
         zoomControl: true
       });
 
-      // High-Visibility Vector Map (Clear Rivers & Borders)
-L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-  attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
-  subdomains: 'abcd',
-  maxZoom: 18
+      // High-Visibility OpenStreetMap Layer
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 18,
+    attribution: '© OpenStreetMap contributors'
 }).addTo(map);
 
       // DOM Elements

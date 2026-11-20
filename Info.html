@@ -415,15 +415,19 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 18,
     attribution: '© OpenStreetMap contributors'
 }).addTo(map);
-      import('https://cdn.jsdelivr.net/npm/leaflet-india-boundary/dist/esm/leaflet.js')
-  .then((mod) => {
-    if (typeof mod.addIndiaBoundary === 'function') {
-      mod.addIndiaBoundary(map);
-    } else if (typeof L.indiaBoundary === 'function') {
-      L.indiaBoundary(map).addTo(map);
+      import('https://cdn.jsdelivr.net/npm/leaflet-india-boundary/dist/esm/index.js')
+  .then(({ INDIA_BOUNDARY }) => {
+    if (INDIA_BOUNDARY) {
+      L.geoJSON(INDIA_BOUNDARY, {
+        style: {
+          color: '#38bdf8',
+          weight: 2.5,
+          opacity: 1
+        }
+      }).addTo(map);
     }
   })
-  .catch((err) => console.error('Boundary overlay error:', err));
+  .catch((err) => console.error('Boundary load error:', err));
 
       // DOM Elements
       const portalPanel = document.getElementById('portalPanel');
